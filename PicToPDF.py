@@ -65,3 +65,12 @@ exitButton = tk.Button(root, text='Exit Application', command=exitApplication, b
 canvas1.create_window(150, 230, window=exitButton)
 
 root.mainloop()
+
+def __main__():
+    getFile()
+    convertToPdf()
+    exitApplication()
+
+
+if __name__ == '__main__':
+    __main__()
