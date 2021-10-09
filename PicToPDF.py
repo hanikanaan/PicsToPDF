@@ -5,12 +5,31 @@ from tkinter import messagebox
 
 root = tk.Tk()
 
-canvas1 = tk.Canvas(root, width=800, height=600, bg='grey', relief='raised')
-canvas1.pack()
+
+class ResizingCanvas(tk.Canvas):
+    def __init__(self, parent, **kwargs):
+        tk.Canvas.__init__(self, parent, **kwargs)
+        self.bind("<Configure>", self.on_resize)
+        self.height = self.winfo_reqheight()
+        self.width = self.winfo_reqwidth()
+
+    def on_resize(self, event):
+        # determine the ratio of old width/height to new width/height
+        wscale = float(event.width)/self.width
+        hscale = float(event.height)/self.height
+        self.width = event.width
+        self.height = event.height
+        self.scale("all", 0, 0, wscale, hscale)
+
+
+myframe = tk.Frame(root)
+myframe.pack(fill=tk.BOTH, expand=tk.YES)
+canvas = ResizingCanvas(myframe, width=800, height=600, bg='grey')
+canvas.pack(fill=tk.BOTH, expand=tk.YES)
 
 header = tk.Label(root, text='File Conversion Tool', bg='grey', fg='white')
 header.config(font=('calibri', 30))
-canvas1.create_window(400, 120, window=header)
+canvas.create_window(400, 120, window=header)
 
 imagelist = []
 
@@ -36,7 +55,7 @@ def getFile():
 
 browseButton = tk.Button(text="     Select File     ", command=getFile, bg='green', fg='white',
                          font=('calibri', 11, 'bold'))
-canvas1.create_window(400, 260, window=browseButton)
+canvas.create_window(400, 260, window=browseButton)
 
 
 def convertToPdf():
@@ -49,9 +68,7 @@ def convertToPdf():
 saveAsButton = tk.Button(text='Convert to PDF', command=convertToPdf, bg='blue', fg='white',
                          font=('calibri', 11, 'bold'))
 
-canvas1.create_window(400, 360, window=saveAsButton)
-
-
+canvas.create_window(400, 360, window=saveAsButton)
 
 
 def exitApplication():
@@ -63,6 +80,7 @@ def exitApplication():
 
 exitButton = tk.Button(root, text='Exit Application', command=exitApplication, bg='brown', fg='white',
                        font=('calibri', 11, 'bold'))
-canvas1.create_window(400, 460, window=exitButton)
+canvas.create_window(400, 460, window=exitButton)
 
+canvas.addtag_all('all')
 root.mainloop()
