@@ -5,16 +5,14 @@ from tkinter import messagebox
 
 root = tk.Tk()
 
-canvas1 = tk.Canvas(root, width=300, height=300, bg='white', relief='raised')
+canvas1 = tk.Canvas(root, width=800, height=600, bg='grey', relief='raised')
 canvas1.pack()
 
-label1 = tk.Label(root, text='File Conversion Tool', bg='white')
-label1.config(font=('helvetica', 20))
-canvas1.create_window(150, 60, window=label1)
+header = tk.Label(root, text='File Conversion Tool', bg='grey', fg='white')
+header.config(font=('calibri', 30))
+canvas1.create_window(400, 120, window=header)
 
-imagelist = [
-
-]
+imagelist = []
 
 
 def getFile():
@@ -23,8 +21,7 @@ def getFile():
     import_file_path = filedialog.askopenfilename()
     image1 = Image.open(import_file_path)
     im1 = image1.convert('RGB')
-    msgBox = tk.messagebox.askquestion('Exit Application?', 'Would you like to scan more pictures?',
-                                       icon='question')
+    msgBox = tk.messagebox.askquestion('Exit Application?', 'Would you like to scan more pictures?', icon='question')
 
     while msgBox == 'yes':
         import_file_path = filedialog.askopenfilename()
@@ -38,30 +35,34 @@ def getFile():
 
 
 browseButton = tk.Button(text="     Select File     ", command=getFile, bg='green', fg='white',
-                         font=('helvetica', 12, 'bold'))
-canvas1.create_window(150, 130, window=browseButton)
+                         font=('calibri', 11, 'bold'))
+canvas1.create_window(400, 260, window=browseButton)
 
 
 def convertToPdf():
-
     export_file_path = filedialog.asksaveasfilename(defaultextension='.pdf')
     im1.save(export_file_path, save_all=True, append_images=imagelist)
+    confirm = tk.messagebox.showinfo('Confirmation', f'Your PDF has been saved to {export_file_path}. Thank you for'
+                                                     ' using the pics to PDF tool!', icon='info')
 
 
-saveAsButton = tk.Button(text='Convert to PDF', command=convertToPdf, bg='green', fg='white',
-                         font=('helvetica', 12, 'bold'))
-canvas1.create_window(150, 180, window=saveAsButton)
+saveAsButton = tk.Button(text='Convert to PDF', command=convertToPdf, bg='blue', fg='white',
+                         font=('calibri', 11, 'bold'))
+
+canvas1.create_window(400, 360, window=saveAsButton)
+
+
 
 
 def exitApplication():
-    MsgBox = tk.messagebox.askquestion('Exit Application', 'Are you sure you want to exit the application',
+    msgBox = tk.messagebox.askquestion('Exit Application', 'Are you sure you want to exit the application',
                                        icon='warning')
-    if MsgBox == 'yes':
+    if msgBox == 'yes':
         root.destroy()
 
 
 exitButton = tk.Button(root, text='Exit Application', command=exitApplication, bg='brown', fg='white',
-                       font=('helvetica', 12, 'bold'))
-canvas1.create_window(150, 230, window=exitButton)
+                       font=('calibri', 11, 'bold'))
+canvas1.create_window(400, 460, window=exitButton)
 
 root.mainloop()
