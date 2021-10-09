@@ -5,6 +5,7 @@ from tkinter import messagebox
 
 
 root = tk.Tk()
+root.minsize(800, 600)
 
 
 class ResizingCanvas(tk.Canvas):
