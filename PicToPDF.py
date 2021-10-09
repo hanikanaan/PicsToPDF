@@ -82,5 +82,4 @@ exitButton = tk.Button(root, text='Exit Application', command=exitApplication, b
                        font=('calibri', 11, 'bold'))
 canvas.create_window(400, 460, window=exitButton)
 
-canvas.addtag_all('all')
 root.mainloop()
