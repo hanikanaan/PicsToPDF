@@ -1,5 +1,5 @@
 # PicsToPDF
-Python script to convert picture(s) to PDF file, made to further accomodate my online school experience as it made things easier for submission.
+Python script to convert picture(s) to PDF file, made to further accomodate my online school experience as this makes things easier to submit.
 
 This was done using tkinter and Pillow
 
